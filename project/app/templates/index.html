@@ -1,0 +1,233 @@
+{% csrf_token %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Space Weather Impact Dashboard</title>
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* Background with animated stars */
+    body {
+      background: radial-gradient(ellipse at bottom, #0d1b2a 0%, #000 100%);
+      overflow-x: hidden;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+      position: relative;
+    }
+
+    /* Twinkling stars effect */
+    .stars {
+      width: 100%;
+      height: 100%;
+      background: transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+      position: absolute;
+      top: 0;
+      left: 0;
+      animation: moveStars 120s linear infinite;
+      opacity: 0.5;
+    }
+    @keyframes moveStars {
+      from { background-position: 0 0; }
+      to { background-position: 10000px 5000px; }
+    }
+
+    /* Header Section */
+    header {
+      text-align: center;
+      z-index: 10;
+      animation: fadeInDown 1.5s ease;
+    }
+
+    header h1 {
+      font-size: 2.8rem;
+      background: linear-gradient(90deg, #00e6ff, #00ff99, #00e6ff);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color: transparent;
+      animation: glow 2s ease-in-out infinite alternate;
+      text-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: #ccc;
+      margin-top: 8px;
+      letter-spacing: 1px;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 8px #00e6ff; }
+      to { text-shadow: 0 0 25px #00e6ff; }
+    }
+
+    /* Dashboard Grid */
+    .dashboard {
+      z-index: 10;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+      width: 100%;
+      max-width: 1000px;
+      margin-top: 30px;
+      animation: fadeInUp 1.5s ease;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Dashboard Cards */
+    .card {
+      position: relative;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+      transition: all 0.4s ease;
+      overflow: hidden;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+    }
+
+    .card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.4);
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(from 180deg at 50% 50%, #00e6ff, transparent, #00ffcc);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: 0;
+      animation: rotate 8s linear infinite;
+    }
+
+    .card:hover::before {
+      opacity: 0.2;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .card a {
+      display: block;
+      font-size: 1.8rem;
+      color: #00e6ff;
+      text-decoration: none;
+      margin-bottom: 10px;
+      font-weight: bold;
+      transition: color 0.3s ease;
+      position: relative;
+      z-index: 2;
+    }
+
+    .card a:hover {
+      color: #00ff99;
+    }
+
+    .card p {
+      color: #ddd;
+      font-size: 1rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: #aaa;
+      text-align: center;
+      z-index: 10;
+    }
+
+    footer span {
+      color: #00e6ff;
+    }
+
+    /* Floating glow animation */
+    .floating {
+      animation: floating 6s ease-in-out infinite;
+    }
+    @keyframes floating {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+  </style>
+</head>
+<body>
+<h1 style="text-decoration: dashed; color:  cadetblue; text-shadow: #00e6ff;text-align:left; margin-right: 1300px; font-family:cursive">Codehunters</h1>
+  <div class="stars"></div>
+
+  <header class="floating">
+    
+  <h1>Space Weather Impact Dashboard</h1>
+    <p>Monitor solar activity and its influence on Earth systems</p>
+  </header>
+
+  <section class="dashboard">
+    <div class="card">
+      <a href="{% url 'solar_flare_data' %}">☀ Solar Activity</a>
+      <p>Track the latest solar flares and X-ray emissions.</p>
+    </div>
+
+    <div class="card">
+      <a href="{% url 'geomagneticimpactzones' %}">🌐 Impact Zones</a>
+      <p>Identify regions affected by geomagnetic storms.</p>
+    </div>
+
+    <div class="card">
+      <a href="{% url 'satellitetracker' %}">🛰 Satellite Tracker</a>
+      <p>Monitor the real-time position of satellites.</p>
+    </div>
+
+    <div class="card">
+      <a href="{% url 'forecast' %}">📅 Weather Forecast</a>
+      <p>Get live weather updates for your chosen city.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>© <span>2025</span> • Space Weather Insights 🌠</p>
+  </footer>
+
+  <script>
+    // Card click animation
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        card.classList.add('active');
+        setTimeout(() => card.classList.remove('active'), 800);
+      });
+    });
+  </script>
+</body>
+</html>

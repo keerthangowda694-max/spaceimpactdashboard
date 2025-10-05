@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Solar Flare </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0c0c1f;
+            color: #f4f4f4;
+            padding: 20px;
+        }
+        h1 {
+            color: #ffcc00;
+            text-align: center;
+        }
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        input {
+            padding: 8px;
+            margin: 5px;
+            border-radius: 6px;
+            border: none;
+            outline: none;
+        }
+        button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 6px;
+            background: #ffcc00;
+            color: #000;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .flare {
+            background: #1c1c3c;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 8px #222;
+        }
+        a {
+            color: #00bfff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-decoration: dashed; color:  cadetblue; text-shadow: #00e6ff;text-align:left; margin-right: 1300px; font-family:cursive">Codehunters</h1>
+    <h1>☀ Solar Flare </h1>
+
+    <!-- Form to enter dates manually -->
+    <form method="get">
+        <label>Start Date:</label>
+        <input type="date" name="startDate" value="{{ start_date }}" required>
+        <label>End Date:</label>
+        <input type="date" name="endDate" value="{{ end_date }}" required>
+        <button type="submit">Get Data</button>
+    </form>
+
+    {% if flares %}
+        {% for flare in flares %}
+        <div class="flare">
+            <p><b>Flare Class:</b> {{ flare.classType }}</p>
+            <p><b>Source Location:</b> {{ flare.sourceLocation }}</p>
+            <p><b>Peak Time:</b> {{ flare.peakTime }}</p>
+            <p><a href="{{ flare.link }}" target="_blank">More Info</a></p>
+        </div>
+        {% endfor %}
+    {% elif start_date and end_date %}
+        <p>No solar flare data available for this range.</p>
+    {% else %}
+        <p>Enter a date range above to see solar flare data.</p>
+    {% endif %}
+</body>
+</html>

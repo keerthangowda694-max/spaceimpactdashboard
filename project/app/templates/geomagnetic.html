@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>🌎 Geomagnetic Impact Zones</title>
+    <style>
+        body {
+            background: radial-gradient(circle at top, #081018, #000);
+            color: #f4f4f4;
+            font-family: 'Poppins', sans-serif;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #00e6ff;
+            text-shadow: 0 0 15px #00e6ff;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        @keyframes glow {
+            from { text-shadow: 0 0 8px #00e6ff; }
+            to { text-shadow: 0 0 25px #00e6ff; }
+        }
+        form {
+            text-align: center;
+            margin: 20px 0;
+        }
+        input[type="date"] {
+            background: #1c1c3c;
+            color: #fff;
+            border: none;
+            padding: 8px 10px;
+            border-radius: 6px;
+            margin: 5px;
+        }
+        button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 6px;
+            background: #00e6ff;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #00e6ff;
+        }
+        .card {
+            background: linear-gradient(145deg, #1b1b3a, #111);
+            margin: 15px auto;
+            padding: 20px;
+            width: 380px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 255, 200, 0.3);
+            animation: fadeUp 0.8s ease-in;
+        }
+        .card:hover {
+            transform: scale(1.03);
+            transition: 0.3s;
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-decoration: dashed; color:  cadetblue; text-shadow: #00e6ff;text-align:left; margin-right: 1300px; font-family:cursive">Codehunters</h1>
+    <h1>🌎 Geomagnetic Impact Zones</h1>
+
+    <!-- Manual Date Input -->
+    <form method="get">
+        <label>Start Date:</label>
+        <input type="date" name="startDate" value="{{ start_date }}" required>
+        <label>End Date:</label>
+        <input type="date" name="endDate" value="{{ end_date }}" required>
+        <button type="submit">Get Impact Data</button>
+    </form>
+
+    {% if impacts %}
+        {% for item in impacts %}
+        <div class="card">
+            <p><b>Storm ID:</b> {{ item.gstID }}</p>
+            <p><b>Start Time:</b> {{ item.startTime }}</p>
+            <p><b>Kp Index:</b> {{ item.kpIndex }}</p>
+            <p><b>Impacted Regions:</b> {{ item.region }}</p>
+        </div>
+        {% endfor %}
+    {% elif start_date and end_date %}
+        <p style="text-align:center;">No geomagnetic storm data found for this range.</p>
+    {% else %}
+        <p style="text-align:center;">Please select a start and end date to view impact zones.</p>
+    {% endif %}
+</body>
+</html>
