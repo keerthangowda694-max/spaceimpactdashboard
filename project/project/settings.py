@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-ag_cqh5m-7oz%wi!k%a2_e604#1*7fpgp%n(#zl-7f+ok=6f@j
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['spaceimpactdashboard.onrender.com','localhost','127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -126,6 +126,7 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 
 
 
